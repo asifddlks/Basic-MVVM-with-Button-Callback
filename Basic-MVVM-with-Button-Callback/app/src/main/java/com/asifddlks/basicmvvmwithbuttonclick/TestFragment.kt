@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.Observer
 import androidx.lifecycle.OnLifecycleEvent
 import com.asifddlks.basicmvvmwithbuttonclick.databinding.TestFragmentBinding
 
@@ -40,8 +41,13 @@ class TestFragment : Fragment(), LifecycleObserver{
 
         binding.button.setOnClickListener{
             //binding.textView.text = binding.editText.text.toString()
-            viewModel.callback.buttonClicked(this)
+            viewModel.callback.buttonClicked(binding.editText.text.toString())
         }
+
+       // binding.textView.text = viewModel.sampleData.value
+        viewModel.sampleData.observe(viewLifecycleOwner, Observer {
+            binding.textView.text = viewModel.sampleData.value
+        })
 
     }
 
