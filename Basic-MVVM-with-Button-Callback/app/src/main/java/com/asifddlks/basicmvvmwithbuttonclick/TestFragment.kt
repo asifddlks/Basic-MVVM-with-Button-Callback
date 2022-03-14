@@ -1,17 +1,17 @@
 package com.asifddlks.basicmvvmwithbuttonclick
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.Observer
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.*
 import com.asifddlks.basicmvvmwithbuttonclick.databinding.TestFragmentBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class TestFragment : Fragment(), LifecycleObserver{
 
@@ -45,9 +45,22 @@ class TestFragment : Fragment(), LifecycleObserver{
         }
 
        // binding.textView.text = viewModel.sampleData.value
-        viewModel.sampleData.observe(viewLifecycleOwner, Observer {
+        /*viewModel.sampleData.observe(viewLifecycleOwner, Observer {
             binding.textView.text = viewModel.sampleData.value
-        })
+        })*/
+
+        /*GlobalScope.launch {
+            viewModel.sampleData.collect {
+                binding.textView.text = it
+            }
+        }*/
+        lifecycleScope.launch {
+            viewModel.sampleData.collect {
+                binding.textView.text = it
+            }
+        }
+
+        //binding.textView.text = viewModel.sampleData.coll
 
     }
 
