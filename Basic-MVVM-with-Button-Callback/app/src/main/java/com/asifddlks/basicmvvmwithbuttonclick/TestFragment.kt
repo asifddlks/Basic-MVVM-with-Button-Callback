@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class TestFragment : Fragment(), LifecycleObserver{
+class TestFragment : Fragment(), LifecycleObserver, Response {
 
     private lateinit var viewModel: TestViewModel
     lateinit var binding: TestFragmentBinding
@@ -38,6 +38,7 @@ class TestFragment : Fragment(), LifecycleObserver{
 
         viewModel = ViewModelProvider(this).get(TestViewModel::class.java)
 
+        viewModel.setOnResponse(this)
 
         binding.button.setOnClickListener{
             //binding.textView.text = binding.editText.text.toString()
@@ -72,6 +73,10 @@ class TestFragment : Fragment(), LifecycleObserver{
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity?.lifecycle?.addObserver(this)
+    }
+
+    override fun onResponse(text: String) {
+        binding.textView.text = text
     }
 
 }
