@@ -29,15 +29,8 @@ class TestViewModel : ViewModel() {
         }
     }
 
-    public fun setCallback(callback:Callback){
-
-    }
-
     public fun setOnResponse(response:Response){
         this.response = response
-
-
-
     }
 
 
