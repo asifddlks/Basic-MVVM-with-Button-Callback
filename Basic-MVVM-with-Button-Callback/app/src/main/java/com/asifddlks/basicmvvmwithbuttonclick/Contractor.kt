@@ -8,5 +8,5 @@ interface Response {
     fun onResponse(text:String)
 }
 interface Callback{
-    fun buttonClicked(view: String)
+    fun buttonClicked(text: String)
 }
